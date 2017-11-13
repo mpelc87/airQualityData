@@ -1,5 +1,8 @@
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by marek on 13.11.17.
  */
@@ -14,5 +17,31 @@ public class MySqlJDBCTest {
     public void createSchemaTest() {
         MySqlJDBC mySqlJDBC = new MySqlJDBC();
         mySqlJDBC.createSchema();
+    }
+
+    @Test
+    public void insertSensorsTest() {
+        MySqlJDBC mySqlJDBC = new MySqlJDBC();
+        List<Sensor> sensors = new ArrayList<>();
+        Sensor sensor = new Sensor.SensorBuilder("1", "name1" , "51.1234", "25.12312")
+                .country("Poland")
+                .locality("Malopolska")
+                .route("Slomczynskiego")
+                .street_number("12")
+                .vendor("Vendor1")
+                .build();
+        sensors.add(sensor);
+
+        sensor = new Sensor.SensorBuilder("2", "name2" , "52.1234", "22.12312")
+                .country("Poland")
+                .locality("Malopolska")
+                .route("Rynek")
+                .street_number("1")
+                .vendor("Vendor1")
+                .build();
+
+        sensors.add(sensor);
+
+        mySqlJDBC.insert(sensors);
     }
 }
