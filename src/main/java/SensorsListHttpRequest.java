@@ -1,17 +1,11 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 
 /**
  * Created by marek on 13.11.17.
  */
 public class SensorsListHttpRequest extends HttpRequest {
-
-    //curl -X GET --header 'Accept: application/json' --header 'apikey: 063ca4c899ab43b38af930d0c388834f' 'https://airapi.airly.eu/v1/sensors/current?southwestLat=40&southwestLong=25&northeastLat=55&northeastLong=10'
 
     public static final String USER_AGENT = "User-Agent";
     private static final String USER_AGENT_VALUE = "Mozilla/5.0";
@@ -24,21 +18,13 @@ public class SensorsListHttpRequest extends HttpRequest {
     private static final String ACCEPT_HEADER = "Accept";
     private static final String ACCEPT_HEADER_VALUE = "application/json";
     private static final String API_KEY_HEADER = "apikey";
-    private static final String API_KEY = "063ca4c899ab43b38af930d0c388834f";
 
     private static final String REQ_METHOD = "GET";
 
-    private static final int RESPONSE_CODE_200_OK = 200;
-    private static final int RESPONSE_CODE_400_BAD_REQUEST = 400;
-    private static final int RESPONSE_CODE_401_UNAUTHORIZED = 401;
-    private static final int RESPONSE_CODE_403_FORBIDDEN = 403;
-    private static final int RESPONSE_CODE_404_NOT_FOUND = 404;
-    private static final int RESPONSE_CODE_500_SERVER_ERROR = 500;
-
-    private double southWestLatitude = 40;
-    private double southWestLongitude = 25;
-    private double northEastLatitude = 55;
-    private double northEastLongitude = 10;
+    private double southWestLatitude;
+    private double southWestLongitude;
+    private double northEastLatitude;
+    private double northEastLongitude;
 
     public SensorsListHttpRequest(double southWestLatitude, double southWestLongitude, double northEastLatitude, double northEastLongitude) {
         this.southWestLatitude = southWestLatitude;
@@ -47,46 +33,13 @@ public class SensorsListHttpRequest extends HttpRequest {
         this.northEastLongitude = northEastLongitude;
     }
 
-    public String performRequest() {
-        HttpURLConnection connection = null;
-        StringBuilder responseData = new StringBuilder();
-        try {
-            connection = createConnection();
-            int responseCode = connection.getResponseCode();
-
-            if(responseCode == RESPONSE_CODE_200_OK) {
-                BufferedReader responseReader = null;
-                try {
-                    responseReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    String inputLine;
-
-                    while ((inputLine = responseReader.readLine()) != null) {
-                        responseData.append(inputLine);
-                    }
-
-                } finally {
-                    responseReader.close();
-                }
-            } else {
-                throw new IOException("HTTP connection problem - " + responseCode +" : " + connection.getResponseMessage());
-            }
-
-        } catch(IOException e) {
-            System.out.println("Connection error: " + e.getMessage());
-        } finally {
-            if(connection != null) {
-                connection.disconnect();
-            }
-        }
-        return responseData.toString();
-    }
-
-    private HttpURLConnection createConnection() throws IOException {
+    @Override
+    HttpURLConnection createConnection(String apiKey) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(getRequestUrl()).openConnection();
         connection.setRequestMethod(REQ_METHOD);
         connection.setRequestProperty(USER_AGENT, USER_AGENT_VALUE);
         connection.setRequestProperty(ACCEPT_HEADER, ACCEPT_HEADER_VALUE);
-        connection.setRequestProperty(API_KEY_HEADER, API_KEY);
+        connection.setRequestProperty(API_KEY_HEADER, apiKey);
 
         return connection;
     }
