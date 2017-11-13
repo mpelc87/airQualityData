@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URL;
 
 /**
  * Created by marek on 13.11.17.
@@ -21,17 +20,12 @@ public abstract class HttpRequest {
             int responseCode = connection.getResponseCode();
 
             if(responseCode == RESPONSE_CODE_200_OK) {
-                BufferedReader responseReader = null;
-                try {
-                    responseReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    String inputLine;
 
+                try(BufferedReader responseReader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    String inputLine;
                     while ((inputLine = responseReader.readLine()) != null) {
                         responseData.append(inputLine);
                     }
-
-                } finally {
-                    responseReader.close();
                 }
             } else {
                 throw new IOException("HTTP connection problem - " + responseCode +" : " + connection.getResponseMessage());

@@ -7,7 +7,7 @@ import java.net.URL;
  */
 public class SensorsListHttpRequest extends HttpRequest {
 
-    public static final String USER_AGENT = "User-Agent";
+    private static final String USER_AGENT = "User-Agent";
     private static final String USER_AGENT_VALUE = "Mozilla/5.0";
     private static final String URL = "https://airapi.airly.eu/v1/sensors/current";
     private static final String SOUTH_WEST_LAT_PARAM = "southwestLat=";

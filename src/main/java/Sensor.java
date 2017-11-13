@@ -48,7 +48,7 @@ public class Sensor {
         return country;
     }
 
-    public Sensor(String id, String name, String vendor, String latitude, String longitude, String streetNumber,
+    private Sensor(String id, String name, String vendor, String latitude, String longitude, String streetNumber,
                   String route, String locality, String country) {
         this.id = id;
         this.name = name;
