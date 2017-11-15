@@ -5,7 +5,7 @@ import java.io.IOException;
 /**
  * Created by marek on 13.11.17.
  */
-public class SensorsListHttpRequestTest {
+public class AirlySensorsListHttpRequestTest {
 
     @Test
     public void performRequestTest() throws IOException {
@@ -14,8 +14,8 @@ public class SensorsListHttpRequestTest {
         double northEastLatitude = 55;
         double northEastLongitude = 10;
 
-        SensorsListHttpRequest sensorsListHttpRequest = new SensorsListHttpRequest(southWestLatitude, southWestLongitude, northEastLatitude, northEastLongitude);
-        String result = sensorsListHttpRequest.performRequest();
+        AirlySensorsListHttpRequest airlySensorsListHttpRequest = new AirlySensorsListHttpRequest(southWestLatitude, southWestLongitude, northEastLatitude, northEastLongitude);
+        String result = airlySensorsListHttpRequest.performRequest();
         System.out.println("Result: " + result);
     }
 

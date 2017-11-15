@@ -10,21 +10,21 @@ public class MySqlJDBC {
     private static final String DB_NAME = "AIR_QUALITY_DATA";
 
     private static final String DB_URL = "jdbc:mysql://localhost/";
-    private static final String DB_URL_WITH_DB_NAME = "jdbc:mysql://localhost/" + DB_NAME;
+    private static final String DB_URL_WITH_DB_NAME = "jdbc:mysql://localhost/" + DB_NAME + "?characterEncoding=utf8";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
-    private static final String CREATE_DATABASE_QUERY = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
+    private static final String CREATE_DATABASE_QUERY = "CREATE DATABASE IF NOT EXISTS " + DB_NAME + " CHARACTER SET utf8";
     private static final String CREATE_TABLE_SENSORS_QUERY = "CREATE TABLE IF NOT EXISTS SENSORS " +
                                                         "(id INTEGER not NULL AUTO_INCREMENT, " +
-                                                        " sensor_id VARCHAR(20) not NULL, " +
-                                                        " name VARCHAR(30), " +
-                                                        " vendor VARCHAR(30), " +
-                                                        " latitude VARCHAR(40), " +
-                                                        " longitude VARCHAR(40), " +
-                                                        " street_number VARCHAR(10), " +
-                                                        " route VARCHAR(100), " +
-                                                        " locality VARCHAR(100), " +
-                                                        " country VARCHAR(100), " +
+                                                        " sensor_id VARCHAR(255) not NULL, " +
+                                                        " name VARCHAR(255), " +
+                                                        " vendor VARCHAR(255), " +
+                                                        " latitude VARCHAR(255), " +
+                                                        " longitude VARCHAR(255), " +
+                                                        " street_number VARCHAR(255), " +
+                                                        " route VARCHAR(255), " +
+                                                        " locality VARCHAR(255), " +
+                                                        " country VARCHAR(255), " +
                                                         " PRIMARY KEY ( id ))";
     private static final String INSERT_SENSOR_QUERY = "INSERT INTO SENSORS (sensor_id, name, vendor, latitude, longitude, " +
             "street_number, route, locality, country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -45,6 +45,7 @@ public class MySqlJDBC {
             for(String [] args : argsList) {
                 for(int i=0; i<args.length; ++i) {
                     statement.setString(i+1, args[i]);
+
                 }
                 statement.addBatch();
             }
@@ -58,11 +59,11 @@ public class MySqlJDBC {
         }
     }
 
-    public void createSchema() {
+    public void createSchemaIfNotExist() {
         executeQuery(CREATE_TABLE_SENSORS_QUERY);
     }
 
-    public void createDatabase() {
+    public void createDatabaseIfNotExist() {
         executeQuery(CREATE_DATABASE_QUERY, DB_URL);
     }
 

@@ -10,23 +10,26 @@ public class MySqlJDBCTest {
     @Test
     public void createDatabaseTest() {
         MySqlJDBC mySqlJDBC = new MySqlJDBC();
-        mySqlJDBC.createDatabase();
+        mySqlJDBC.createDatabaseIfNotExist();
     }
 
     @Test
     public void createSchemaTest() {
         MySqlJDBC mySqlJDBC = new MySqlJDBC();
-        mySqlJDBC.createSchema();
+        mySqlJDBC.createSchemaIfNotExist();
     }
 
     @Test
     public void insertSensorsTest() {
         MySqlJDBC mySqlJDBC = new MySqlJDBC();
+        mySqlJDBC.createDatabaseIfNotExist();
+        mySqlJDBC.createSchemaIfNotExist();
+
         List<Sensor> sensors = new ArrayList<>();
         Sensor sensor = new Sensor.SensorBuilder("1", "name1" , "51.1234", "25.12312")
                 .country("Poland")
-                .locality("Malopolska")
-                .route("Slomczynskiego")
+                .locality("Malopółską")
+                .route("Słomczyńskiego")
                 .street_number("12")
                 .vendor("Vendor1")
                 .build();

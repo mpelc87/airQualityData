@@ -5,7 +5,7 @@ import java.net.URL;
 /**
  * Created by marek on 13.11.17.
  */
-public class SensorsListHttpRequest extends HttpRequest {
+public class AirlySensorsListHttpRequest extends HttpRequest {
 
     private static final String USER_AGENT = "User-Agent";
     private static final String USER_AGENT_VALUE = "Mozilla/5.0";
@@ -26,7 +26,7 @@ public class SensorsListHttpRequest extends HttpRequest {
     private double northEastLatitude;
     private double northEastLongitude;
 
-    public SensorsListHttpRequest(double southWestLatitude, double southWestLongitude, double northEastLatitude, double northEastLongitude) {
+    public AirlySensorsListHttpRequest(double southWestLatitude, double southWestLongitude, double northEastLatitude, double northEastLongitude) {
         this.southWestLatitude = southWestLatitude;
         this.southWestLongitude = southWestLongitude;
         this.northEastLatitude = northEastLatitude;

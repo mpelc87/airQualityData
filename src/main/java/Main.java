@@ -7,6 +7,6 @@ public class Main {
         double northEastLatitude = 55;
         double northEastLongitude = 10;
 
-        SensorsListHttpRequest request = new SensorsListHttpRequest(southWestLatitude, southWestLongitude, northEastLatitude, northEastLongitude);
+        AirlySensorsListHttpRequest request = new AirlySensorsListHttpRequest(southWestLatitude, southWestLongitude, northEastLatitude, northEastLongitude);
     }
 }
